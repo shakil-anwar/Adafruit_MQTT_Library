@@ -781,6 +781,12 @@ Adafruit_MQTT_Publish::Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver,
   topic = feed;
   qos = q;
 }
+
+void Adafruit_MQTT_Publish::set_topic(char *my_topic)
+{
+  topic = my_topic;
+}
+
 bool Adafruit_MQTT_Publish::publish(int32_t i) {
   char payload[12];
   ltoa(i, payload, 10);
