@@ -177,8 +177,8 @@ class Adafruit_MQTT {
 
   // Publish a message to a topic using the specified QoS level.  Returns true
   // if the message was published, false otherwise.
-  bool publish(char *topic, const char *payload, uint8_t qos = 0);
-  bool publish(char *topic, uint8_t *payload, uint16_t bLen, uint8_t qos = 0);
+  bool publish(const char *topic, const char *payload, uint8_t qos = 0);
+  bool publish(const char *topic, uint8_t *payload, uint16_t bLen, uint8_t qos = 0);
 
   // Add a subscription to receive messages for a topic.  Returns true if the
   // subscription could be added or was already present, false otherwise.
@@ -243,7 +243,7 @@ class Adafruit_MQTT {
   // Functions to generate MQTT packets.
   uint8_t connectPacket(uint8_t *packet);
   uint8_t disconnectPacket(uint8_t *packet);
-  uint16_t publishPacket(uint8_t *packet, char *topic, uint8_t *payload, uint16_t bLen, uint8_t qos);
+  uint16_t publishPacket(uint8_t *packet, const char *topic, uint8_t *payload, uint16_t bLen, uint8_t qos);
   uint8_t subscribePacket(uint8_t *packet, const char *topic, uint8_t qos);
   uint8_t unsubscribePacket(uint8_t *packet, const char *topic);
   uint8_t pingPacket(uint8_t *packet);
@@ -253,10 +253,9 @@ class Adafruit_MQTT {
 
 class Adafruit_MQTT_Publish {
  public:
-  // Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver, uint8_t qos = 0);
-  Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver, char *feed, uint8_t qos = 0);
-  Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver,uint8_t topic_max_len = 20, uint8_t q=0);
-  
+  Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver, const char *feed, uint8_t qos = 0);
+  Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver, uint8_t topic_max_len = 20, uint8_t q=0);
+
   bool publish(const char *s);
   bool publish(double f, uint8_t precision=2);  // Precision controls the minimum number of digits after decimal.
                                                 // This might be ignored and a higher precision value sent.
@@ -265,6 +264,7 @@ class Adafruit_MQTT_Publish {
   bool publish(uint8_t *b, uint16_t bLen);
 
   void set_topic(char *my_topic);
+  char* get_topic(void);
 
 
 private:
@@ -276,15 +276,16 @@ private:
 class Adafruit_MQTT_Subscribe {
  public:
   Adafruit_MQTT_Subscribe(Adafruit_MQTT *mqttserver, const char *feedname, uint8_t q=0);
-
-
+  Adafruit_MQTT_Subscribe(Adafruit_MQTT *mqttserver, uint8_t topic_max_len = 20, uint8_t q=0);
   void setCallback(SubscribeCallbackUInt32Type callb);
   void setCallback(SubscribeCallbackDoubleType callb);
   void setCallback(SubscribeCallbackBufferType callb);
   void setCallback(AdafruitIO_MQTT *io, SubscribeCallbackIOType callb);
   void removeCallback(void);
+  void set_topic(char *my_topic);
+  char* get_topic(void);
 
-  const char *topic;
+  char *topic;
   uint8_t qos;
 
   uint8_t lastread[SUBSCRIPTIONDATALEN];
