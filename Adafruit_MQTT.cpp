@@ -778,7 +778,14 @@ uint8_t Adafruit_MQTT::disconnectPacket(uint8_t *packet) {
 Adafruit_MQTT_Publish::Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver, char *feed, uint8_t q) {
   mqtt = mqttserver;
   topic = feed;
+  // topic = new char[20]; //alocating memory for topic
   qos = q;
+}
+Adafruit_MQTT_Publish::Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver,uint8_t topic_max_len, uint8_t q)
+{
+	mqtt = mqttserver;
+	topic = new char[20];
+	qos = q;
 }
 
 void Adafruit_MQTT_Publish::set_topic(char *my_topic)

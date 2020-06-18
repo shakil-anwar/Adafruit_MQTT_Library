@@ -255,7 +255,8 @@ class Adafruit_MQTT_Publish {
  public:
   // Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver, uint8_t qos = 0);
   Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver, char *feed, uint8_t qos = 0);
-
+  Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver,uint8_t topic_max_len = 20, uint8_t q=0);
+  
   bool publish(const char *s);
   bool publish(double f, uint8_t precision=2);  // Precision controls the minimum number of digits after decimal.
                                                 // This might be ignored and a higher precision value sent.
@@ -275,6 +276,7 @@ private:
 class Adafruit_MQTT_Subscribe {
  public:
   Adafruit_MQTT_Subscribe(Adafruit_MQTT *mqttserver, const char *feedname, uint8_t q=0);
+
 
   void setCallback(SubscribeCallbackUInt32Type callb);
   void setCallback(SubscribeCallbackDoubleType callb);
