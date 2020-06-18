@@ -297,11 +297,11 @@ bool Adafruit_MQTT::disconnect() {
 }
 
 
-bool Adafruit_MQTT::publish(const char *topic, const char *data, uint8_t qos) {
+bool Adafruit_MQTT::publish(char *topic, const char *data, uint8_t qos) {
     return publish(topic, (uint8_t*)(data), strlen(data), qos);
 }
 
-bool Adafruit_MQTT::publish(const char *topic, uint8_t *data, uint16_t bLen, uint8_t qos) {
+bool Adafruit_MQTT::publish(char *topic, uint8_t *data, uint16_t bLen, uint8_t qos) {
   // Construct and send publish packet.
   uint16_t len = publishPacket(buffer, topic, data, bLen, qos);
   if (!sendPacket(buffer, len))
@@ -639,7 +639,7 @@ uint8_t Adafruit_MQTT::connectPacket(uint8_t *packet) {
 
 
 // as per http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718040
-uint16_t Adafruit_MQTT::publishPacket(uint8_t *packet, const char *topic,
+uint16_t Adafruit_MQTT::publishPacket(uint8_t *packet, char *topic,
                                      uint8_t *data, uint16_t bLen, uint8_t qos) {
   uint8_t *p = packet;
   uint16_t len=0;
@@ -775,8 +775,7 @@ uint8_t Adafruit_MQTT::disconnectPacket(uint8_t *packet) {
 
 // Adafruit_MQTT_Publish Definition ////////////////////////////////////////////
 
-Adafruit_MQTT_Publish::Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver,
-                                             const char *feed, uint8_t q) {
+Adafruit_MQTT_Publish::Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver, char *feed, uint8_t q) {
   mqtt = mqttserver;
   topic = feed;
   qos = q;
@@ -784,7 +783,10 @@ Adafruit_MQTT_Publish::Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver,
 
 void Adafruit_MQTT_Publish::set_topic(char *my_topic)
 {
-  topic = my_topic;
+  Serial.print("Before Topic:");Serial.println(topic);
+  strcpy(topic,my_topic);
+  Serial.print("After Topic:");Serial.println(topic);
+  // topic = my_topic;
 }
 
 bool Adafruit_MQTT_Publish::publish(int32_t i) {

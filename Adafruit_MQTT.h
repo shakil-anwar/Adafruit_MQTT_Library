@@ -177,8 +177,8 @@ class Adafruit_MQTT {
 
   // Publish a message to a topic using the specified QoS level.  Returns true
   // if the message was published, false otherwise.
-  bool publish(const char *topic, const char *payload, uint8_t qos = 0);
-  bool publish(const char *topic, uint8_t *payload, uint16_t bLen, uint8_t qos = 0);
+  bool publish(char *topic, const char *payload, uint8_t qos = 0);
+  bool publish(char *topic, uint8_t *payload, uint16_t bLen, uint8_t qos = 0);
 
   // Add a subscription to receive messages for a topic.  Returns true if the
   // subscription could be added or was already present, false otherwise.
@@ -253,6 +253,7 @@ class Adafruit_MQTT {
 
 class Adafruit_MQTT_Publish {
  public:
+  // Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver, uint8_t qos = 0);
   Adafruit_MQTT_Publish(Adafruit_MQTT *mqttserver, char *feed, uint8_t qos = 0);
 
   bool publish(const char *s);
