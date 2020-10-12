@@ -55,3 +55,7 @@ STM32F2            |             |             |     X       |
   * ATtiny85 @ 8MHz : Adafruit Gemma, Arduino Gemma, Adafruit Trinket 3V
 
 <!-- END COMPATIBILITY TABLE -->
+
+#### Modifications
+1. changed MAXBUFFERSIZE in Adafuit_MQTT.h to 512
+2. added #define MAX_MQTT_SEND_PACKET_LEN 512 in Adafruit_MQTT_Client.h

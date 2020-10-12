@@ -1,4 +1,5 @@
 // The MIT License (MIT)
+// The MIT License (MIT)
 //
 // Copyright (c) 2015 Adafruit Industries
 //
@@ -28,7 +29,8 @@
 
 // How long to delay waiting for new data to be available in readPacket.
 #define MQTT_CLIENT_READINTERVAL_MS 10
-
+// added for smIOT packet
+#define MAX_MQTT_SEND_PACKET_LEN 512
 
 // MQTT client implementation for a generic Arduino Client interface.  Can work
 // with almost all Arduino network hardware like ethernet shield, wifi shield,
